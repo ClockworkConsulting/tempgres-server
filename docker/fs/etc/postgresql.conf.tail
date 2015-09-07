@@ -1,0 +1,3 @@
+# Temporary databases don't need fsync and such
+fsync=off
+synchronous_commit=off
