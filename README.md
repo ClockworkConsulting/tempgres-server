@@ -3,6 +3,20 @@
 `tempgres` is a REST service which for conveniently creating temporary
 PostgreSQL databases. It is intended for use from tests.
 
+# Why?
+
+This is mostly aimed at integration-type tests you usually want to use a) a real
+database, and b) want to start with a fresh database for every test case. Using
+this REST service eliminates the setup (users, configuration, database server,
+etc.) which would be necessary for using temporary databases for tests locally
+on a development machine -- all you need is a single URL.
+
+If you have a group of developers, you'll probably want to run a single
+`tempgres` instance in your development LAN so that everybody can share it
+and can use the same URL. The URL could also be baked into the default
+test configuration so that developers don't have to do any setup to get
+tests up and running.
+
 # Usage
 
 ## Java/Scala
