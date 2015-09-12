@@ -30,7 +30,7 @@ Once the service is set up and running (see below), you can do a HTTP
 POST to it to create a temporary database. For example,
 
 ```
-$ curl -d '' http://localhost:8900
+$ curl -d '' http://localhost:8080
 tempgres-client
 tempgres-cpass
 localhost
