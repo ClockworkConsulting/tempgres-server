@@ -1,9 +1,9 @@
-# Intro
+# Tempgres: Temporary PostgreSQL databases on demand
 
 `tempgres` is a REST service which for conveniently creating temporary
 PostgreSQL databases. It is intended for use from tests.
 
-# Why?
+## Why?
 
 This is mostly aimed at integration-type tests you usually want to use a) a real
 database, and b) want to start with a fresh database for every test case. Using
