@@ -1,3 +1,6 @@
+# Force connection limit
+max_connections=512
+
 # Temporary databases don't need fsync and such
 fsync=off
 synchronous_commit=off
