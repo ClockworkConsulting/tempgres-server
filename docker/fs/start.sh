@@ -1,9 +1,13 @@
 #!/bin/sh
 
-# Initialize a new PostgreSQL instance for every startup, just in case
+# Fix weird permissions
+chmod 755 /etc
+chmod 755 /*.sh
+
+# Initialize a new PostgreSQL cluster for every startup, just in case
 # there were a few databases left behind from last run.
-rm -rf /var/lib/postgresql/9.3/main/*
-su postgres /init-db.sh
+/usr/bin/pg_dropcluster 9.5 main
+/usr/bin/pg_createcluster 9.5 main
 
 # Start PostgreSQL.
 /etc/init.d/postgresql start

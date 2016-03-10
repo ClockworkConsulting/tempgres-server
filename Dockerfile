@@ -7,10 +7,6 @@ MAINTAINER ba@cwconsult.dk
 # Make /tmp writable by world
 RUN chmod 777 /tmp
 
-# Make sure base image is up-to-date
-COPY docker/scripts/install-pre.sh /docker/scripts/install-pre.sh
-RUN /docker/scripts/install-pre.sh
-
 # Install everything we need into the base image
 COPY docker/scripts/install-post.sh /docker/scripts/install-post.sh
 RUN /docker/scripts/install-post.sh
@@ -44,7 +40,7 @@ EXPOSE ${HTTP_PORT} ${PUBLISHED_ADDRESS_PORT}
 COPY docker/fs /
 
 # Append configuration extras for PostgreSQL for performance
-RUN cat /etc/postgresql.conf.tail >> /etc/postgresql/9.3/main/postgresql.conf
+RUN cat /etc/postgresql.conf.tail >> /etc/postgresql/9.5/main/postgresql.conf
 
 # Override default CMD set in ubuntu trusty Dockerfile
 CMD ["/start.sh"]
