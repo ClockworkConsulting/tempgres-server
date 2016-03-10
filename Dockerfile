@@ -8,8 +8,8 @@ MAINTAINER ba@cwconsult.dk
 RUN chmod 777 /tmp
 
 # Install everything we need into the base image
-COPY docker/scripts/install-post.sh /docker/scripts/install-post.sh
-RUN /docker/scripts/install-post.sh
+COPY docker/scripts/install.sh /docker/scripts/install.sh
+RUN /docker/scripts/install.sh
 
 # Warning avoidance
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
