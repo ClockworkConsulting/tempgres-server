@@ -23,7 +23,3 @@ apt-get install -y \
 apt-get purge -y wget
 apt-get autoremove -y
 apt-get clean -y
-
-# Make sure PostgreSQL will accept connections from anywhere
-echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.5/main/pg_hba.conf
-echo "listen_addresses='*'"            >> /etc/postgresql/9.5/main/postgresql.conf
