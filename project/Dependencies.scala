@@ -8,7 +8,7 @@ object Dependencies {
   }
 
   val scalaArm =
-    "com.jsuereth" %% "scala-arm" % "1.4"
+    "com.jsuereth" %% "scala-arm" % "2.0"
 
   val unfiltered =
     "net.databinder" %% "unfiltered" % Version.unfilteredVersion
