@@ -1,3 +1,5 @@
+enablePlugins(PackPlugin)
+
 //
 // Project metadata
 //
@@ -25,8 +27,6 @@ scalacOptions in ThisBuild ++= Seq(
 //
 // Packaging
 //
-
-packSettings
 
 packMain := Map("tempgres-server" -> "tempgres.server.http.Main")
 
