@@ -3,7 +3,7 @@ import sbt._
 object Dependencies {
 
   private[this] object Version {
-    val unfilteredVersion = "0.8.4"
+    val unfilteredVersion = "0.9.1"
     val log4j = "2.3"
   }
 
@@ -11,13 +11,13 @@ object Dependencies {
     "com.jsuereth" %% "scala-arm" % "2.0"
 
   val unfiltered =
-    "net.databinder" %% "unfiltered" % Version.unfilteredVersion
+    "ws.unfiltered" %% "unfiltered" % Version.unfilteredVersion
 
   val unfilteredNetty =
-    "net.databinder" %% "unfiltered-netty" % Version.unfilteredVersion
+    "ws.unfiltered" %% "unfiltered-netty" % Version.unfilteredVersion
 
   val unfilteredNettyServer =
-    "net.databinder" %% "unfiltered-netty-server" % Version.unfilteredVersion
+    "ws.unfiltered" %% "unfiltered-netty-server" % Version.unfilteredVersion
 
   val postgreSQLJDBC4 =
     "org.postgresql" % "postgresql" % "9.3-1102-jdbc41"
