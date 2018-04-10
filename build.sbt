@@ -8,7 +8,7 @@ name := "tempgres-server"
 
 organization := "dk.cwconsult"
 
-version := "1.1-SNAPSHOT"
+version := "1.1"
 
 //
 // Compiler settings
