@@ -1,18 +1,15 @@
 #
 # See below for configuration (the "Configuration" comment)
 #
-FROM ubuntu:trusty
+FROM phusion/baseimage:0.10.1
 MAINTAINER ba@cwconsult.dk
-
-# Make /tmp writable by world
-RUN chmod 777 /tmp
 
 # Install everything we need into the base image
 COPY docker/scripts/install.sh /docker/scripts/install.sh
 RUN /docker/scripts/install.sh
 
 # Warning avoidance
-ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
 # Add the server
 COPY target/pack /srv/pack
@@ -25,8 +22,8 @@ COPY target/pack /srv/pack
 #   PG_ADMIN_* are the user name/password to use for administrator account
 #   PG_CLIENT_* are the user name/password to use for client (unprivileged) account
 #
-ENV HTTP_PORT 8080
-ENV PUBLISHED_ADDRESS_PORT 5432
+ENV HTTP_PORT 15431
+ENV PUBLISHED_ADDRESS_PORT 15432
 ENV PUBLISHED_ADDRESS_HOST localhost
 ENV PG_ADMIN_USER tempgres-admin
 ENV PG_ADMIN_PASS tempgres-apass
@@ -37,10 +34,9 @@ ENV PG_CLIENT_PASS tempgres-cpass
 EXPOSE ${HTTP_PORT} ${PUBLISHED_ADDRESS_PORT}
 
 # Copy all the file system bits we need when starting the container
-COPY docker/fs /
+COPY docker/service /etc/service
+RUN chown 0:0 -R /etc/service && \
+    chmod a+rX -R /etc/service
 
-# Append configuration extras for PostgreSQL for performance
-RUN cat /etc/postgresql.conf.tail >> /etc/postgresql/9.5/main/postgresql.conf
-
-# Override default CMD set in ubuntu trusty Dockerfile
-CMD ["/start.sh"]
+# Remove APT files
+RUN apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

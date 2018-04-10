@@ -62,34 +62,31 @@ If you also want to run the service in Docker, you'll also need [Docker](https:/
 
 ## Using Docker
 
-A basic recipe for building is provided in the shell script
-[try-docker.sh](https://github.com/ClockworkConsulting/tempgres-server/blob/master/try-docker.sh).
-
-If you just need to do one-time setup, you can also run the steps in there manually:
+We've published the docker image on DockerHub, so if you're OK with
+using the default ports (15431 and 15432), then all you have to do is
+run
 
 ```
-$ sbt pack
-...
-$ docker build -t tempgres .
-...
-$ docker run --name tempgres -p 8080:8080 -p 5432:5432 -i tempgres
-...
+$ docker run \
+  --name=tempgres \
+  -p 15431:8080 \
+  -p 15432:5432 \
+  cwconsult/tempgres:v1.1
 ```
 
-This sets up a Docker container which runs the REST service on port 8080
-and runs its embedded PostgreSQL instance on port 5432.
+to get started. After that's up and running, you should be be able to
+POST to port 15431 on `localhost` and that should give you the
+database name, host name, credentials, etc. for a temporary database.
 
-If all those commands succeeded, you should have a running `tempgres` container
-and you should be able to run the above `curl` command and connect (e.g. via
-`psql`) to the temporary database.
-
-**If you want to use different ports** you'll need to use change the commands
-above accordingly, and you'll also need to modify the `HTTP_PORT`
-and `PUBLISHED_ADDRESS_HOST` environment variables in the Dockerfile.
+**If you want to use different ports** you'll need to use change the
+commands above accordingly, and you'll also need to set the
+`HTTP_PORT` and `PUBLISHED_ADDRESS_HOST` environment variables via the
+`-e` option to `docker run`; see the Docker documentation for more
+information.
 
 **If you want to use non-default user name/password combinations** you
-can modify the `PG_ADMIN_USER`, `PG_ADMIN_PASS`, `PG_CLIENT_USER`
-and `PG_CLIENT_PASS` variables.
+can set the `PG_ADMIN_USER`, `PG_ADMIN_PASS`, `PG_CLIENT_USER` and
+`PG_CLIENT_PASS` environment variables.
 
 ## Manual Setup
 

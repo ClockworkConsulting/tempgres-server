@@ -11,4 +11,4 @@ sbt clean pack \
 sudo docker build -t tempgres . \
   || die "build the docker image"
 
-sudo docker run --name tempgres -p 8080:8080 -p 5432:5432 -i tempgres
+sudo docker run --name tempgres -p 15431:8080 -p 15432:5432 -i tempgres

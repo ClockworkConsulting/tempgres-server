@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -eu
+
+# Wait for PostgreSQL to come online
+su postgres ./_wait-online.sh
+
+# Create the necessary roles
+su postgres ./_roles.sh
+
+# Start the server. This process does not daemonize.
+/srv/pack/bin/tempgres-server
