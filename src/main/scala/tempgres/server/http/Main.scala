@@ -1,17 +1,24 @@
 package tempgres.server.http
 
 import com.typesafe.config.ConfigFactory
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 import org.postgresql.ds.PGPoolingDataSource
 import resource._
 import tempgres.server.settings.{DatabaseSettings, HttpSettings}
 
 object Main {
 
+  private[this] val logger: Logger = LogManager.getLogger(classOf[ServerComponent])
+
   def main(args: Array[String]) {
     // Load configuration
     val configuration = ConfigFactory.load()
     val databaseSettings = DatabaseSettings(configuration.getConfig("database"))
     val httpSettings = HttpSettings(configuration.getConfig("http"))
+
+    // Show HTTP configuration
+    logger.info(s"HTTP configuration: $httpSettings")
 
     // Load PostgreSQL driver.
     Class.forName("org.postgresql.Driver")
