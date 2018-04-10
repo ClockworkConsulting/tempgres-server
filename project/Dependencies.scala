@@ -4,7 +4,7 @@ object Dependencies {
 
   private[this] object Version {
     val unfilteredVersion = "0.9.1"
-    val log4j = "2.3"
+    val log4j = "2.11.0"
   }
 
   val scalaArm =
