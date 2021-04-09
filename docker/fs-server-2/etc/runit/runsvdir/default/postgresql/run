@@ -1,0 +1,31 @@
+#!/bin/sh
+
+set -eu
+
+#
+# Cluster configuration
+#
+CLUSTER_NAME=main
+CLUSTER_VERSION=10
+
+# Initialize a fresh PostgreSQL cluster, just in case there were
+# databases left behind from last run. This also ensures clean
+# configuration files for manipulation below.
+/usr/bin/pg_dropcluster --stop ${CLUSTER_VERSION} ${CLUSTER_NAME} || exit 0
+/usr/bin/pg_createcluster ${CLUSTER_VERSION} ${CLUSTER_NAME}
+
+# Make sure PostgreSQL will accept connections from anywhere, and use
+# options to ensure minimum durability and maximum speed.
+cat << EOF >> /etc/postgresql/${CLUSTER_VERSION}/${CLUSTER_NAME}/pg_hba.conf
+host all all 0.0.0.0/0 md5
+EOF
+
+cat << EOF >> /etc/postgresql/${CLUSTER_VERSION}/${CLUSTER_NAME}/postgresql.conf
+listen_addresses='*'
+max_connections=768
+fsync=off
+synchronous_commit=off
+EOF
+
+# Start PostgreSQL in the foreground.
+pg_ctlcluster --foreground ${CLUSTER_VERSION} ${CLUSTER_NAME} start

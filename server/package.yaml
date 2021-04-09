@@ -1,0 +1,39 @@
+name: tempgres-server
+version: "0.6.2"
+synopsis: REST service for creating temporary PostgreSQL databases.
+description: >
+    REST service for conveniently creating temporary PostgreSQL databases
+    for use in tests.
+    .
+    See <https://github.com/ClockworkConsulting/tempgres-server/blob/master/README.md README.md> for
+    detailed usage and setup instructions.
+license: AGPL-3
+license-file: LICENSE.txt
+author: Bardur Arantsson
+maintainer: bardur@scientician.net
+copyright: Copyright (c) 2014-2021 Bardur Arantsson
+category: Database Testing Web
+data-dir: data
+github: ClockworkConsulting/tempgres-server
+
+ghc-options: -Wall
+
+dependencies:
+  - base
+  - async
+  - envy
+  - postgresql-simple
+  - random
+  - scotty
+  - text
+  - transformers
+  - warp
+
+executables:
+  tempgres-server:
+    source-dirs: src
+    main: Main.hs
+    other-modules:
+      - Tempgres.Configuration
+      - Tempgres.Mutex
+      - Tempgres.DatabaseId

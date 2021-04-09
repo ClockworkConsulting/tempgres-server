@@ -1,23 +1,13 @@
-*.class
-*.log
-
-# sbt specific
-.cache
-.history
-.lib/
-target/
-lib_managed/
-src_managed/
-
-# Scala-IDE specific
-.scala_dependencies
-.worksheet
-
-# Eclipse
-.classpath
-.project
-.settings/
-
-# IDEA
+/.hsenv_*
+/.hsenv
 .idea
-.idea_modules
+*.iml
+/out
+.cabal-sandbox
+.stack-work/
+dist-newstyle/
+dist/
+dist_*/
+cabal.sandbox.config
+/.ghc.environment.*
+*.cabal

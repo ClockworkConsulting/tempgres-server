@@ -1,4 +1,4 @@
-# Tempgres: Temporary PostgreSQL databases on demand
+# Tempgres
 
 `tempgres` is a REST service for conveniently creating temporary
 PostgreSQL databases. It is intended for use from tests.
@@ -11,114 +11,73 @@ this REST service eliminates the setup (users, configuration, database server,
 etc.) which would be necessary for using temporary databases for tests locally
 on a development machine -- all you need is a single URL.
 
-If you have a group of developers, you'll probably want to run a single
-`tempgres` instance in your development LAN so that everybody can share it
-and can use the same URL. The URL could also be baked into the default
-test configuration so that developers don't have to do any setup to get
-tests up and running.
+If you have a group of developers, you'll probably want to run a single tempgres
+instance in your development LAN so that everybody can share it and can use the
+same URL. The URL could also be baked into the default test configuration so
+that developers don't have to do any setup to get tests up and running.
 
-# Usage
-
-## Java/Scala
-
-An easy-to-use client library for Java/Scala is provided; see
-the [tempgres-client](https://github.com/ClockworkConsulting/tempgres-client/blob/master/README.md) for documentation.
-
-## REST
+## Usage
 
 Once the service is set up and running (see below), you can do a HTTP
 POST to it to create a temporary database. For example,
 
 ```
-$ curl -d '' http://localhost:8080
+$ curl -d '' http://localhost:15431
 tempgres-client
 tempgres-cpass
 localhost
-5432
-temp_c23ff99a_ff56_4810_8692_7f779564b073
+15432
+temp_jm1sufkdkdyn1ekifld1nyblj8vuomjz9
 ```
 
-The response indicates that the temporary database `temp_c23ff...` has
-been created on the database server `localhost` (port 5432) and made
-available to the user `tempgres-client` using the password
-`tempgres-cpass`.
+The response indicates that the temporary database
+`temp_jm1sufkd...` has been created on the
+database server `localhost` (port 5432) and made available to the user
+`tempgres-client` using the password `tempgres-cpass`.
 
 The database will automatically be destroyed after a configurable
-duration (see the `application.conf` file), though any temporary databases
-that have not been destroyed when the service is stopped will stay around.
-If you're using the Docker container, any lingering databases will be destroyed
-on startup. All temporary databases will be named `temp_...`.
+duration, though any temporary databases that have not been destroyed
+when the service is stopped will stay around. All temporary databases
+will be named `temp_...`.
 
-# Installation
+## Clients
 
-The recommended installation option is to use a Docker container (see below).
+- [Haskell](http://hackage.haskell.org/package/tempgres-client)
+- [Java](https://github.com/ClockworkConsulting/tempgres-client)
 
-## Prerequisites
+## Security Notice
 
-To build the basic service you'll need [sbt](http://www.scala-sbt.org/) and to run it you'll
-just need a JRE.
+This service is strictly meant for use on one's own computer or on development
+LANs which are firewalled off from the public Internet.
 
-If you also want to run the service in Docker, you'll also need [Docker](https://www.docker.com/).
+## Installing the service
 
-## Using Docker
+The recommended installation option is to use 'Docker' to build a container,
+e.g.
 
-We've published the docker image on DockerHub, so if you're OK with
-using the default ports (15431 and 15432), then all you have to do is
-run
-
-```
-$ docker run \
-  --name=tempgres \
-  -p 15431:8080 \
-  -p 15432:5432 \
-  cwconsult/tempgres:v1.1
+```sh
+$ ./docker/build.sh
 ```
 
-to get started. After that's up and running, you should be be able to
-POST to port 15431 on `localhost` and that should give you the
-database name, host name, credentials, etc. for a temporary database.
+This runs the build, and should produce some output akin to:
 
-**If you want to use different ports** you'll need to use change the
-commands above accordingly, and you'll also need to set the
-`HTTP_PORT` and `PUBLISHED_ADDRESS_HOST` environment variables via the
-`-e` option to `docker run`; see the Docker documentation for more
-information.
-
-**If you want to use non-default user name/password combinations** you
-can set the `PG_ADMIN_USER`, `PG_ADMIN_PASS`, `PG_CLIENT_USER` and
-`PG_CLIENT_PASS` environment variables.
-
-## Manual Setup
-
-You'll need to tweak the `application.conf` file and set up databases
-and users appropriately (see comments in the file). See also the
-scripts in `docker/fs` for some further hints if necessary.
-
-To run directly, just do
-
-```
-$ sbt run
+``` text
+ ...
+ => exporting to image
+ => => exporting layers
+ => => writing image sha256:f47ee2bb5dd2d1df6577439a421fe00383eb599193d395a96178fb2d2360cfba
+ => => naming to docker.io/library/tempgres:latest
 ```
 
-You can also package the application up into a standalone bundle in `target/pack`
-by running the command
+To run the container "in the background", run
 
+```sh
+$ docker run -p 15431:8080 -p 15432:5432 -d --name=tempgres sha256:f47ee2bb5dd2d1df657743...
 ```
-$ sbt pack
-```
 
-Note that `tempgres` uses [TypeSafe Config](https://github.com/typesafehub/config), so
-you can override the baked-in configuration file at startup by setting the `config.file`
-Java system property.
+To adjust the ports (15431, 15432) you will need to set the `HTTP_PORT` and
+`TEMPGRES_PUBLISHED_ADDRESS_PORT` environment variables when starting the
+container.
 
-
-# Security
-
-You should definitely **NOT** run this on any network facing the public
-Internet since no attempt has been made to prevent DoS attacks and the
-like. The `tempgres` REST service is only meant for development LANs
-which are firewalled off.
-
-# Copyright and License
-
-This code is provided under the [Affero General Public License 3.0](https://github.com/ClockworkConsulting/tempgres-server/blob/master/LICENSE)
+You can also set other environment variables to control user names, passwords,
+etc. See the `Dockerfile` and `Configuration.hs` for details.

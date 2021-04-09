@@ -1,0 +1,6 @@
+// Set up the options to avoid any prompts during upgrade
+Dpkg::Options:: "--force-confdef";
+Dpkg::Options:: "--force-confold";
+APT::Get {
+   Assume-Yes "true";
+}
