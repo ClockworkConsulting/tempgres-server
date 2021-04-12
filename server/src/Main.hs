@@ -19,22 +19,22 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 module Main ( main ) where
 
-import           Control.Concurrent (threadDelay)
-import           Control.Concurrent.Async (async, withAsync, waitCatch)
-import           Control.Exception (bracket)
-import           Control.Monad (void, replicateM)
-import           Control.Monad.IO.Class (MonadIO, liftIO)
-import           Data.String (fromString)
-import qualified Data.Text.Lazy as TL
-import           Database.PostgreSQL.Simple (Connection, ConnectInfo(..), Only(..))
-import qualified Database.PostgreSQL.Simple as P
-import           Network.Wai.Handler.Warp (setPort, setHost, defaultSettings)
-import           System.IO (stderr, hPutStrLn)
-import           System.Random (randomRIO)
-import           Web.Scotty (ScottyM, Options(..), scottyOpts, post, text)
-import           Tempgres.Mutex
-import           Tempgres.Configuration
-import           Tempgres.DatabaseId
+import Control.Concurrent (threadDelay)
+import Control.Concurrent.Async (async, withAsync, waitCatch)
+import Control.Exception (bracket)
+import Control.Monad (void, replicateM)
+import Control.Monad.IO.Class (MonadIO, liftIO)
+import Data.String (fromString)
+import Data.Text.Lazy qualified as TL
+import Database.PostgreSQL.Simple (Connection, ConnectInfo(..), Only(..))
+import Database.PostgreSQL.Simple qualified as P
+import Network.Wai.Handler.Warp (setPort, setHost, defaultSettings)
+import System.IO (stderr, hPutStrLn)
+import System.Random (randomRIO)
+import Web.Scotty (ScottyM, Options(..), scottyOpts, post, text)
+import Tempgres.Mutex
+import Tempgres.Configuration
+import Tempgres.DatabaseId
 
 -- Perform an operation with an open connection to the database.
 -- The connection will automatically be closed after the operation

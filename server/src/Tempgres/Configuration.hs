@@ -20,10 +20,10 @@ module Tempgres.Configuration
     , loadConfiguration
     ) where
 
-import           Data.Word (Word16)
-import           GHC.Generics
-import           System.Envy
-import           Tempgres.DatabaseId (unsafeMkDatabaseId, DatabaseId)
+import Data.Word (Word16)
+import GHC.Generics
+import System.Envy
+import Tempgres.DatabaseId (unsafeMkDatabaseId, DatabaseId)
 
 -- | Configuration settings; read from environment variables.
 -- Implementation note: The spellings here may be a bit strange,

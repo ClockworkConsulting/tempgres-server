@@ -21,6 +21,7 @@ ghc-options: -Wall
 default-extensions:
   - DeriveGeneric
   - DerivingVia
+  - ImportQualifiedPost
   - LambdaCase
   - OverloadedStrings
 
