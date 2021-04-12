@@ -45,12 +45,12 @@ mkDatabaseId s = do
     rest :: [Char] -> String -> Either String String
     rest _       [ ]                       = Right [ ]
     rest choices (c:cs) | c `elem` choices = rest choices cs
-    rest _       (c:_)  | otherwise        = invalid c
+    rest _       (c:_)                     = invalid c
 
     first :: [Char] -> String -> Either String String
     first _       [ ]                       = Left "Database name cannot be empty"
     first choices (c:cs) | c `elem` choices = Right cs
-    first _       (c:_)  | otherwise        = invalid c
+    first _       (c:_)                     = invalid c
 
     invalid c = Left $ "Invalid character '" ++ [c] ++ "' in database name '" ++ s ++ "'"
 
