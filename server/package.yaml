@@ -18,6 +18,12 @@ github: ClockworkConsulting/tempgres-server
 
 ghc-options: -Wall
 
+default-extensions:
+  - DeriveGeneric
+  - DerivingVia
+  - LambdaCase
+  - OverloadedStrings
+
 dependencies:
   - base
   - async
