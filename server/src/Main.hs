@@ -84,7 +84,7 @@ createTemporaryDatabase configuration@Configuration{..} databaseId = do
   where
     createSql = fromString $
       "CREATE DATABASE " ++ sqlDatabaseId ++
-      "  WITH TEMPLATE " ++ (sqlIdentifier cfgTemplateDatabase) ++
+      "  WITH TEMPLATE " ++ sqlIdentifier cfgTemplateDatabase ++
       "          OWNER \"" ++ cfgClientUser ++ "\""
 
     sqlDatabaseId = sqlIdentifier databaseId

@@ -29,7 +29,7 @@ import System.Envy (Var(..))
 -- Newtype to prevent unsafe construction.
 newtype DatabaseId = DatabaseId String
   deriving (Show)
-  deriving Var via (String)
+  deriving Var via String
 
 -- Create a new database identifier. This implementation is
 -- *extremely* conservative in what is accepts in the input
