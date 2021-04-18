@@ -16,7 +16,10 @@ category: Database Testing Web
 data-dir: data
 github: ClockworkConsulting/tempgres-server
 
-ghc-options: -Wall
+ghc-options:
+  - -Wall
+  - -Wmissing-fields
+  - -threaded
 
 default-extensions:
   - DeriveGeneric
