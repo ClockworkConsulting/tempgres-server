@@ -1,5 +1,5 @@
 name: tempgres-server
-version: "2.0.0"
+version: "2.1.0"
 synopsis: REST service for creating temporary PostgreSQL databases.
 description: >
     REST service for conveniently creating temporary PostgreSQL databases
