@@ -32,7 +32,7 @@ temp_jm1sufkdkdyn1ekifld1nyblj8vuomjz9
 
 The response indicates that the temporary database
 `temp_jm1sufkd...` has been created on the
-database server `localhost` (port 5432) and made available to the user
+database server `localhost` (port 15432) and made available to the user
 `tempgres-client` using the password `tempgres-cpass`.
 
 The database will automatically be destroyed after a configurable
