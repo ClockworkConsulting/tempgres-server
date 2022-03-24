@@ -50,16 +50,33 @@ will be named `temp_...`.
 This service is strictly meant for use on one's own computer or on development
 LANs which are firewalled off from the public Internet.
 
-## Installing the service
+## Installation
 
-The recommended installation option is to use 'Docker' to build a container,
-e.g.
+The recommended way to install on your own system is to
+use the [container from DockerHub](https://hub.docker.com/repository/docker/cwconsult/tempgres):
+
+```sh
+$ docker run -p 15431:8080 -p 15432:5432 -d cwconsult/tempgres
+```
+
+To adjust the ports (15431, 15432) you will need to set the `HTTP_PORT` and
+`TEMPGRES_PUBLISHED_ADDRESS_PORT` environment variables when starting the
+container. You can also set other environment variables to control
+the user name, passwords, etc. See the `Dockerfile` and `Configuration.hs`
+for details.
+
+You might also want to specify a fixed tag above, e.g. `cwconsult/tempgres:v2.1.1`
+
+## Building
+
+If you need customization beyond what environment variables allow,
+you may produce your own container image by running
 
 ```sh
 $ ./docker/build.sh
 ```
 
-This runs the build, and should produce some output akin to:
+This builds everything, and should produce some output akin to:
 
 ``` text
  ...
@@ -69,15 +86,6 @@ This runs the build, and should produce some output akin to:
  => => naming to docker.io/library/tempgres:latest
 ```
 
-To run the container "in the background", run
-
-```sh
-$ docker run -p 15431:8080 -p 15432:5432 -d --name=tempgres sha256:f47ee2bb5dd2d1df657743...
-```
-
-To adjust the ports (15431, 15432) you will need to set the `HTTP_PORT` and
-`TEMPGRES_PUBLISHED_ADDRESS_PORT` environment variables when starting the
-container.
-
-You can also set other environment variables to control user names, passwords,
-etc. See the `Dockerfile` and `Configuration.hs` for details.
+To run the container, follow the instruction above, but 
+specify `sha256:f47ee2bb5dd2d1df657743...` as the name
+of the container instead of `cwconsult/tempgres`.
