@@ -8,4 +8,4 @@ su postgres ./_wait-online.sh
 su postgres ./_roles.sh
 
 # Start the server. This process does not daemonize.
-/usr/local/bin/tempgres-server
+exec su tempgres -c /usr/local/bin/tempgres-server

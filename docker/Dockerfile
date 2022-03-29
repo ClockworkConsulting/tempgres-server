@@ -150,6 +150,9 @@ EXPOSE ${HTTP_PORT} ${TEMPGRES_PUBLISHED_ADDRESS_PORT}
 # which initialize the database, set up roles, etc.
 COPY --chown=0:0 docker/fs-server-2/ /
 
+# Create tempgres user
+RUN useradd --system tempgres
+
 # Fix up permissions
 RUN chmod a+rX /etc
 RUN chmod -R a+rX /etc/runit/runsvdir/default/tempgres
