@@ -1,4 +1,4 @@
-#syntax=docker/dockerfile:1.2
+#syntax=docker/dockerfile:1.4
 
 #----------------------------------------------------------------
 # Build Stage 1: Base 'generic' ghc + stack image
