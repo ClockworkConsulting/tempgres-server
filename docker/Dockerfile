@@ -4,16 +4,16 @@
 # Build Stage 1: Base 'generic' ghc + stack image
 #----------------------------------------------------------------
 
-FROM alpine:3.13.0 AS bld-stage1
+FROM alpine:3.15.3 AS bld-stage1
 
 # Note that the version here *MUST* match the GHC version of the
 # Stackage LTS that we're using. The build will fail, badly, if
 # that is not the case.
-ARG GHC_VERSION="8.10.4"
+ARG GHC_VERSION="9.0.2"
 # It is tempting to change this to use *_VERSION variables and interpolate those
 # into the *_URL variables, but using URLs is much robust to upstream changes.
-ARG GHCUP_URL="https://downloads.haskell.org/ghcup/0.1.12/x86_64-linux-ghcup-0.1.12"
-ARG STACK_URL=https://github.com/commercialhaskell/stack/releases/download/v2.5.1/stack-2.5.1-linux-x86_64-bin
+ARG GHCUP_URL="https://downloads.haskell.org/ghcup/0.1.17.6/x86_64-linux-ghcup-0.1.17.6"
+ARG STACK_URL=https://github.com/commercialhaskell/stack/releases/download/v2.7.5/stack-2.7.5-linux-x86_64-bin
 
 # Copy config and tools
 COPY --chown=0:0 docker/fs-build-1/ /
@@ -98,7 +98,7 @@ RUN --mount=type=bind,source=server,target=/src,rw \
 # We use a different base image because we actually
 # need a proper database inside the container for it
 # to form a coherent 'logical' service.
-FROM phusion/baseimage:18.04-1.0.0 as srv-stage1
+FROM phusion/baseimage:focal-1.2.0 as srv-stage1
 
 # Copy the file system contents
 COPY --chown=0:0 docker/fs-server-1/ /
@@ -112,7 +112,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get dist-upgrade
 
 # Install everything we need into the base image
-RUN apt-get install postgresql-10
+RUN apt-get install postgresql-12
 
 # Remove APT files; we should not be installing anything
 # in later stages.

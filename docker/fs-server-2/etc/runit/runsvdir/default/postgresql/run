@@ -6,7 +6,7 @@ set -eu
 # Cluster configuration
 #
 CLUSTER_NAME=main
-CLUSTER_VERSION=10
+CLUSTER_VERSION=12
 
 # Initialize a fresh PostgreSQL cluster, just in case there were
 # databases left behind from last run. This also ensures clean

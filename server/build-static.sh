@@ -10,7 +10,7 @@ LIBS=(
     pq
     pgcommon
     pgport
-    ldap_r
+    ldap
     ssl
     crypto
     lber
