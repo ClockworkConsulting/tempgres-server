@@ -56,7 +56,7 @@ The recommended way to install on your own system is to
 use the [container from DockerHub](https://hub.docker.com/repository/docker/cwconsult/tempgres):
 
 ```sh
-$ docker run -p 15431:8080 -p 15432:5432 -d cwconsult/tempgres
+$ docker run -p 15431:8080 -p 15432:5432 -d cwconsult/tempgres:latest
 ```
 
 To adjust the ports (15431, 15432) you will need to set the `HTTP_PORT` and
@@ -65,7 +65,7 @@ container. You can also set other environment variables to control
 the user name, passwords, etc. See the `Dockerfile` and `Configuration.hs`
 for details.
 
-You might also want to specify a fixed tag above, e.g. `cwconsult/tempgres:v2.1.1`
+You might also want to specify a fixed tag above, e.g. `cwconsult/tempgres:v3.0.0`
 
 ## Building
 
